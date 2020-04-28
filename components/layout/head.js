@@ -7,6 +7,7 @@ import NProgress from 'nprogress'
 import debounce from 'lodash.debounce'
 import RouterEvents from '../../lib/router-events'
 import * as metrics from '../../lib/metrics'
+import { ORG_NAME } from '~/lib/constants'
 
 let title
 
@@ -32,7 +33,7 @@ if (global.document) {
           }`
         ]
       : []),
-    `Check out our code here: https://zeit.co/oss`,
+    `Check out our code here: https://vercel.com/oss`,
     `Have a great day! 📣🐢`
   ]
 
@@ -55,8 +56,8 @@ const HeadTags = props => {
         rel="canonical"
         href={
           props.url ||
-          `https://zeit.co${props.router.asPath}` ||
-          'https://zeit.co/docs'
+          `https://vercel.com${props.router.asPath}` ||
+          'https://vercel.com/docs'
         }
       />
     </>
@@ -72,7 +73,7 @@ class Head extends React.PureComponent {
 
   render() {
     const titlePrefix =
-      null != this.props.titlePrefix ? this.props.titlePrefix : 'ZEIT – '
+      null != this.props.titlePrefix ? this.props.titlePrefix : `${ORG_NAME} – `
     const titleSuffix =
       null != this.props.titleSuffix ? this.props.titleSuffix : ''
     const ogDescription = this.props.ogDescription || this.props.description
@@ -82,7 +83,7 @@ class Head extends React.PureComponent {
           <title>{titlePrefix + this.props.title + titleSuffix}</title>
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:site" content="@zeithq" />
-          <meta property="og:site_name" content="ZEIT Documentation" />
+          <meta property="og:site_name" content={`${ORG_NAME} Documentation`} />
           <meta property="og:type" content="website" />
           <meta
             property="og:title"
@@ -97,8 +98,8 @@ class Head extends React.PureComponent {
             property="og:url"
             content={
               this.props.url ||
-              `https://zeit.co${this.props.router.asPath}` ||
-              'https://zeit.co/docs'
+              `https://vercel.com${this.props.router.asPath}` ||
+              'https://vercel.com/docs'
             }
           />
           <HeadTags {...this.props} />
@@ -114,7 +115,7 @@ class Head extends React.PureComponent {
               this.props.image ||
               `https://og-image.now.sh/${encodeURIComponent(
                 this.props.ogTitle || this.props.title
-              )}.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg`
+              )}.png?theme=light&md=1&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fzeit-black-triangle.svg`
             }
           />
           {this.props.image ? (
@@ -193,7 +194,7 @@ class Head extends React.PureComponent {
           />
           <link
             rel="manifest"
-            href="https://assets.zeit.co/raw/upload/v1573246315/front/favicon/round-2/site.webmanifest"
+            href="https://assets.vercel.com/raw/upload/v1573246315/front/favicon/round-2/site.webmanifest"
           />
           <link
             rel="mask-icon"
@@ -216,11 +217,11 @@ class Head extends React.PureComponent {
             {
               "@type": "WebPage",
               "url": "${this.props.url ||
-                `https://zeit.co${this.props.router.asPath}` ||
-                'https://zeit.co/docs'}",
+                `https://vercel.com${this.props.router.asPath}` ||
+                'https://vercel.com/docs'}",
               "headline": "${this.props.ogTitle ||
                 this.props.title ||
-                'ZEIT Documentation'}",
+                `${ORG_NAME} Documentation`}",
               ${
                 this.props.description
                   ? '"description": "' + this.props.description + '",'
@@ -231,7 +232,7 @@ class Head extends React.PureComponent {
               "name": "${titlePrefix +
                 (this.props.ogTitle ||
                   this.props.title ||
-                  'ZEIT Documentation') +
+                  `${ORG_NAME} Documentation`) +
                 titleSuffix}",
               "dateModified": "${
                 this.props.lastEdited ? this.props.lastEdited : null
@@ -241,7 +242,7 @@ class Head extends React.PureComponent {
               }",
               "author": {
                 "@type": "Person",
-                "name": "ZEIT"
+                "name": "${ORG_NAME}"
               },
               "publisher": {
                 "@type": "Organization",
@@ -251,7 +252,7 @@ class Head extends React.PureComponent {
                     process.env.IMAGE_ASSETS_URL
                   }/favicon/favicon-96x96.png`}"
                 },
-                "name": "ZEIT"
+                "name": "${ORG_NAME}"
               },
               "@context": "http:\/\/schema.org"
             }
